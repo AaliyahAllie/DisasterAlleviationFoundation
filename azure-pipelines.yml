@@ -1,6 +1,8 @@
+# Trigger pipeline on commits to develop branch
 trigger:
 - develop
 
+# Use a Windows build agent
 pool:
   vmImage: 'windows-latest'
 
@@ -8,17 +10,21 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+# 1. Install .NET SDK
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '7.x'
+    version: '7.x' # replace with your .NET version if needed
 
+# 2. Restore NuGet packages
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '**/*.sln'
 
+# 3. Build the solution
 - task: VSBuild@1
   inputs:
     solution: '**/*.sln'
@@ -26,7 +32,26 @@ steps:
     platform: 'Any CPU'
     configuration: '$(buildConfiguration)'
 
+# 4. Run tests (if you have unit tests)
 - task: VSTest@2
   inputs:
     platform: 'Any CPU'
     configuration: '$(buildConfiguration)'
+
+# 5. Publish build artifacts (for deployment)
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+# Optional: Deploy to Azure App Service
+# Uncomment this section if you have an Azure Web App ready
+# Make sure to create a Service Connection in Azure DevOps first
+
+#- task: AzureWebApp@1
+#  inputs:
+#    azureSubscription: '<YOUR-AZURE-SUBSCRIPTION-NAME>'
+#    appType: 'webApp'
+#    appName: '<YOUR-APP-SERVICE-NAME>'
+#    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
