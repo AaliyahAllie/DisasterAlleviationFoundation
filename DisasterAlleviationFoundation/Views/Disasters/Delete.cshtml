@@ -1,0 +1,24 @@
+﻿@model DisasterAlleviationFoundation.Models.Disaster
+
+@{
+    ViewData["Title"] = "Delete Disaster";
+}
+
+<h1>Delete Disaster</h1>
+
+<h3>Are you sure you want to delete this disaster?</h3>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Location</h6>
+        <p class="card-text">@Model.Description</p>
+        <p><strong>Reported At:</strong> @Model.ReportedAt.ToString("yyyy-MM-dd HH:mm")</p>
+    </div>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="DisasterId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

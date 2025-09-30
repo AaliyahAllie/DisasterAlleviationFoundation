@@ -1,0 +1,20 @@
+﻿@model IEnumerable<DisasterAlleviationFoundation.Models.Donation>
+<h2>Donations</h2>
+<a href="/Donations/Create">Add Donation</a>
+<table class="table">
+    <tr>
+        <th>Donor</th>
+        <th>Resource</th>
+        <th>Quantity</th>
+        <th>Date</th>
+    </tr>
+    @foreach (var d in Model)
+    {
+        <tr>
+            <td>@d.DonorName</td>
+            <td>@d.ResourceType</td>
+            <td>@d.Quantity</td>
+            <td>@d.DateDonated</td>
+        </tr>
+    }
+</table>

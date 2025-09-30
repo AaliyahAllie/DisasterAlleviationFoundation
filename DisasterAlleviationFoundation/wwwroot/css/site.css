@@ -1,0 +1,79 @@
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navbar */
+.navbar-nav {
+    flex-direction: row;
+}
+
+    .navbar-nav .nav-item {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+.navbar .nav-link {
+    padding: 10px 15px;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+    .navbar .nav-link:hover,
+    .navbar .nav-link.active {
+        background-color: #ffc107;
+        color: #000 !important;
+    }
+
+.navbar .dropdown-menu {
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Hero Section */
+.hero {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+    .hero .btn {
+        margin-top: 10px;
+    }
+
+/* Cards */
+.card {
+    transition: transform 0.3s;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+/* Buttons */
+.btn-primary {
+    transition: transform 0.3s;
+}
+
+    .btn-primary:hover {
+        transform: scale(1.05);
+    }
+
+.btn-warning:hover {
+    transform: scale(1.05);
+}
+
+/* Footer links */
+footer a {
+    color: #fff;
+}
+
+    footer a:hover {
+        text-decoration: underline;
+    }
