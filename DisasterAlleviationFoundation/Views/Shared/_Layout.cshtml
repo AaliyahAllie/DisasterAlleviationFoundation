@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <!-- Full-width horizontal navbar -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="/">
@@ -22,12 +22,13 @@
 
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/Home/About">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/Disasters">Disasters</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/Donations">Donations</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/Volunteers">Volunteers</a></li>
+                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Home" ? "active" : "")" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "About" ? "active" : "")" href="/Home/About">About</a></li>
+                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Disasters" ? "active" : "")" href="/Disasters">Disasters</a></li>
+                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Donations" ? "active" : "")" href="/Donations">Donations</a></li>
+                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Volunteers" ? "active" : "")" href="/Volunteers">Volunteers</a></li>
                 </ul>
+
                 <ul class="navbar-nav ms-auto">
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -37,9 +38,7 @@
                                 @User.Identity.Name
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="/Profile">Profile</a> <!-- Added Profile link -->
-                                </li>
+                                <li><a class="dropdown-item" href="/Profile">Profile</a></li>
                                 <li>
                                     <form method="post" asp-area="Identity" asp-page="/Account/Logout">
                                         <button type="submit" class="dropdown-item">Logout</button>
@@ -58,22 +57,24 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="container my-4">
         @RenderBody()
     </main>
 
+    <!-- Footer -->
     <footer class="footer bg-primary text-white p-4 mt-5">
         <div class="container d-flex justify-content-between flex-wrap">
-            <div>
+            <div class="mb-3">
                 <h5>Disaster Alleviation</h5>
                 <p>Helping communities respond to disasters efficiently and safely.</p>
             </div>
-            <div>
+            <div class="mb-3">
                 <h6>Contact</h6>
                 <p>Email: info@disasteralleviation.org</p>
                 <p>Phone: +27 123 456 7890</p>
             </div>
-            <div>
+            <div class="mb-3">
                 <h6>Links</h6>
                 <ul class="list-unstyled">
                     <li><a href="/" class="text-white">Home</a></li>

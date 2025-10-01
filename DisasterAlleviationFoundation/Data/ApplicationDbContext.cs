@@ -18,20 +18,11 @@ namespace DisasterAlleviationFoundation.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Disaster>()
-                .HasOne(d => d.User)
-                .WithMany()
-                .HasForeignKey(d => d.UserId);
-
-            builder.Entity<Volunteer>()
-                .HasOne(v => v.User)
-                .WithMany()
-                .HasForeignKey(v => v.UserId);
-
             builder.Entity<Donation>()
-                .HasOne(d => d.User)
-                .WithMany()
-                .HasForeignKey(d => d.UserId);
+                   .HasOne(d => d.User)
+                   .WithMany()
+                   .HasForeignKey(d => d.UserId);
         }
+
     }
 }
