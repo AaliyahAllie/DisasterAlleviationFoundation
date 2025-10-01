@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,39 +10,39 @@
     <title>@ViewData["Title"] - Disaster Alleviation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="/">
-                <img src="~/images/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top me-2">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                <img src="~/images/logo.png" alt="Disaster Alleviation Logo" width="40" height="40" class="me-2">
                 Disaster Alleviation
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Home" ? "active" : "")" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "About" ? "active" : "")" href="/Home/About">About</a></li>
-                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Disasters" ? "active" : "")" href="/Disasters">Disasters</a></li>
-                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Donations" ? "active" : "")" href="/Donations">Donations</a></li>
-                    <li class="nav-item"><a class="nav-link @((ViewData["ActivePage"] as string) == "Volunteers" ? "active" : "")" href="/Volunteers">Volunteers</a></li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Centered Navigation -->
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link @(ViewData["ActivePage"] as string == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewData["ActivePage"] as string == "About" ? "active" : "")" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewData["ActivePage"] as string == "Disasters" ? "active" : "")" asp-controller="Disasters" asp-action="Index">Disasters</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewData["ActivePage"] as string == "Donations" ? "active" : "")" asp-controller="Donations" asp-action="Index">Donations</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewData["ActivePage"] as string == "Volunteers" ? "active" : "")" asp-controller="Volunteers" asp-action="Index">Volunteers</a></li>
                 </ul>
 
+                <!-- Right User Section -->
                 <ul class="navbar-nav ms-auto">
-                    @if (User.Identity.IsAuthenticated)
+                    @if (SignInManager.IsSignedIn(User))
                     {
+                        var userName = User.Identity?.Name;
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                @User.Identity.Name
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="/Profile">Profile</a></li>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">@userName</a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a></li>
                                 <li>
                                     <form method="post" asp-area="Identity" asp-page="/Account/Logout">
                                         <button type="submit" class="dropdown-item">Logout</button>
@@ -49,8 +53,15 @@
                     }
                     else
                     {
-                        <li class="nav-item"><a class="nav-link" href="/Identity/Account/Login">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/Identity/Account/Register">Register</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Login">Admin Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                        </li>
                     }
                 </ul>
             </div>
@@ -63,29 +74,32 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer bg-primary text-white p-4 mt-5">
-        <div class="container d-flex justify-content-between flex-wrap">
+    <footer class="footer bg-primary text-white mt-5">
+        <div class="container py-4 d-flex flex-wrap justify-content-between">
             <div class="mb-3">
                 <h5>Disaster Alleviation</h5>
                 <p>Helping communities respond to disasters efficiently and safely.</p>
             </div>
             <div class="mb-3">
                 <h6>Contact</h6>
-                <p>Email: info@disasteralleviation.org</p>
+                <p>Email: <a href="mailto:info@disasteralleviation.org" class="text-white">info@disasteralleviation.org</a></p>
                 <p>Phone: +27 123 456 7890</p>
             </div>
             <div class="mb-3">
-                <h6>Links</h6>
+                <h6>Quick Links</h6>
                 <ul class="list-unstyled">
-                    <li><a href="/" class="text-white">Home</a></li>
-                    <li><a href="/Home/About" class="text-white">About</a></li>
-                    <li><a href="/Disasters" class="text-white">Disasters</a></li>
-                    <li><a href="/Donations" class="text-white">Donations</a></li>
-                    <li><a href="/Volunteers" class="text-white">Volunteers</a></li>
+                    <li><a asp-controller="Home" asp-action="Index" class="text-white">Home</a></li>
+                    <li><a asp-controller="Home" asp-action="About" class="text-white">About</a></li>
+                    <li><a asp-controller="Disasters" asp-action="Index" class="text-white">Disasters</a></li>
+                    <li><a asp-controller="Donations" asp-action="Index" class="text-white">Donations</a></li>
+                    <li><a asp-controller="Volunteers" asp-action="Index" class="text-white">Volunteers</a></li>
+                    <li><a asp-controller="Admin" asp-action="Login" class="text-white">Admin Login</a></li>
                 </ul>
             </div>
         </div>
-        <div class="text-center mt-3">&copy; @DateTime.Now.Year Disaster Alleviation Foundation</div>
+        <div class="bg-dark text-center py-2">
+            <small>&copy; @DateTime.Now.Year Disaster Alleviation Foundation</small>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

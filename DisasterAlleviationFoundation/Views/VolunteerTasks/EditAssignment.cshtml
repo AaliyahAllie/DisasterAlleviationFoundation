@@ -1,0 +1,43 @@
+﻿@model DisasterAlleviationFoundation.Models.VolunteerAssignment
+@{
+    ViewData["Title"] = "Assign/Edit Volunteer Task";
+    var disasters = (List<DisasterAlleviationFoundation.Models.Disaster>)ViewData["Disasters"];
+}
+
+<h2>Assign/Edit Task for Volunteer</h2>
+
+<form asp-action="EditAssignment" method="post">
+    <input type="hidden" asp-for="VolunteerId" />
+
+    <div class="mb-3">
+        <label class="form-label">Task Description</label>
+        <!-- Free text input for task -->
+        <input asp-for="TaskDescription" class="form-control" placeholder="Enter task description" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DisasterId" class="form-label">Disaster</label>
+        <select asp-for="DisasterId" class="form-select" required>
+            <option value="">Select Disaster</option>
+            @foreach (var d in disasters)
+            {
+                if (d.DisasterId == Model.DisasterId)
+                {
+                    <option value="@d.DisasterId" selected="selected">@d.Title</option>
+                }
+                else
+                {
+                    <option value="@d.DisasterId">@d.Title</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Location" class="form-label">Location</label>
+        <input asp-for="Location" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Assignment</button>
+    <a asp-action="VolunteerDashboard" class="btn btn-secondary">Cancel</a>
+</form>

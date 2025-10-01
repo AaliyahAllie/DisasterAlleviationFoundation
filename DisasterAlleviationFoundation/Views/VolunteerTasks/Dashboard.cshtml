@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DisasterAlleviationFoundation.Models.VolunteerAdminViewModel>
+@{
+    ViewData["Title"] = "Admin Dashboard - Volunteers";
+}
+
+<h2>Admin Dashboard - Volunteers</h2>
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Availability</th>
+            <th>Skills</th>
+            <th>Assigned Task</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>@v.Volunteer.Name</td>
+                <td>@v.Volunteer.Age</td>
+                <td>@v.Volunteer.Availability</td>
+                <td>@v.Volunteer.Skills</td>
+                <td>
+                    @(v.Assignment != null ? $" @ ({v.Assignment.Disaster.Title})" : "Unassigned")
+                </td>
+                <td>
+                    <a asp-action="AssignVolunteer" asp-route-volunteerId="@v.Volunteer.VolunteerId" class="btn btn-sm btn-primary">Assign/Edit</a>
+                    <form asp-action="DeleteVolunteer" method="post" style="display:inline;">
+                        <input type="hidden" name="volunteerId" value="@v.Volunteer.VolunteerId" />
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

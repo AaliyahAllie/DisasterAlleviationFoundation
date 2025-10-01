@@ -1,0 +1,27 @@
+﻿@model DisasterAlleviationFoundation.Models.Disaster
+@{
+    ViewData["Title"] = "Delete Disaster";
+}
+
+<h2>Delete Disaster</h2>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete the following disaster report? This action cannot be undone.
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text"><strong>Description:</strong> @Model.Description</p>
+        <p class="card-text"><strong>Location:</strong> @Model.Location</p>
+        <p class="card-text"><strong>Date/Time:</strong> @Model.DateReported.ToString("g")</p>
+        <p class="card-text"><strong>Severity:</strong> @Model.Severity</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="DisasterId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

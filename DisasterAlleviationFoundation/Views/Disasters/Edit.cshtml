@@ -1,0 +1,50 @@
+﻿@model DisasterAlleviationFoundation.Models.Disaster
+@{
+    ViewData["Title"] = "Report Disaster";
+}
+
+<h2>Report a Disaster</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Location" class="form-label"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Severity" class="form-label"></label>
+        <select asp-for="Severity" class="form-select">
+            @foreach (var s in (List<string>)ViewData["SeverityOptions"])
+            {
+                <option value="@s">@s</option>
+            }
+        </select>
+        <span asp-validation-for="Severity" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label>Upload Evidence (optional)</label>
+        <input type="file" name="Evidence" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Report</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

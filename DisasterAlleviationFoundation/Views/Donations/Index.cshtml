@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DisasterAlleviationFoundation.Models.Donation>
+@{
+    ViewData["Title"] = "Donations";
+}
+
+<h2>Donations</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">Add Donation</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date Donated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Category</td>
+                <td>@d.Quantity</td>
+                <td>@d.Description</td>
+                <td>@d.Status</td>
+                <td>@d.DateDonated.ToString("g")</td>
+                <td>
+                    <form asp-action="UpdateStatus" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@d.DonationId" />
+                        <select name="status" class="form-select form-select-sm d-inline w-auto">
+                            <option value="Pending" selected="@(d.Status == "Pending")">Pending</option>
+                            <option value="Distributed" selected="@(d.Status == "Distributed")">Distributed</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

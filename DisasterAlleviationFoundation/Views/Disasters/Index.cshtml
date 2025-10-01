@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DisasterAlleviationFoundation.Models.Disaster>
+@{
+    ViewData["Title"] = "Disaster Reports";
+}
+
+<h2>Disaster Reports</h2>
+
+<form method="get" class="mb-3">
+    <div class="row g-2">
+        <div class="col">
+            <input type="text" name="location" class="form-control" placeholder="Filter by Location" />
+        </div>
+        <div class="col">
+            <select name="severity" class="form-control">
+                <option value="">Filter by Severity</option>
+                <option value="Low">Low</option>
+                <option value="Mild">Mild</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="/Disasters" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
+<a href="/Disasters/Create" class="btn btn-success mb-3">Report New Disaster</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date/Time</th>
+            <th>Severity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Title</td>
+                <td>@d.Location</td>
+                <td>@d.DateReported.ToString("g")</td>
+                <td>@d.Severity</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@d.DisasterId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@d.DisasterId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
