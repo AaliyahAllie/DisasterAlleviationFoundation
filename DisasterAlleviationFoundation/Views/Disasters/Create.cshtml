@@ -1,12 +1,11 @@
 ﻿@model DisasterAlleviationFoundation.Models.Disaster
-
 @{
     ViewData["Title"] = "Report Disaster";
 }
 
 <h1>Report a New Disaster</h1>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -21,6 +20,20 @@
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Severity"></label>
+        <select asp-for="Severity" class="form-control">
+            <option value="">Select Severity</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <span asp-validation-for="Severity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Upload Evidence (optional)</label>
+        <input type="file" name="Evidence" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>

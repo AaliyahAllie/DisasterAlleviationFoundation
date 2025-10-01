@@ -1,33 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DisasterAlleviationFoundation.Models.Disaster
 @{
-}
-@model DisasterAlleviationFoundation.Models.Disaster
-
-@{
-    ViewData["Title"] = "Report Disaster";
+    ViewData["Title"] = "Edit Disaster";
 }
 
-<h1>Report a New Disaster</h1>
+<h1>Edit Disaster</h1>
 
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="DisasterId" />
+
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Location"></label>
         <input asp-for="Location" class="form-control" />
         <span asp-validation-for="Location" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="form-group">
+        <label asp-for="Severity"></label>
+        <select asp-for="Severity" class="form-control">
+            <option value="Low" selected="@Model.Severity == " Low"">Low</option>
+            <option value="Medium" selected="@Model.Severity == " Medium"">Medium</option>
+            <option value="High" selected="@Model.Severity == " High"">High</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" class="form-control">
+            <option value="Pending" selected="@Model.Status == " Pending"">Pending</option>
+            <option value="InProgress" selected="@Model.Status == " InProgress"">In Progress</option>
+            <option value="Resolved" selected="@Model.Status == " Resolved"">Resolved</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Evidence File (optional)</label>
+        @if (!string.IsNullOrEmpty(Model.EvidenceFileName))
+        {
+            <p>Current file: <a href="~/uploads/@Model.EvidenceFileName" target="_blank">View / Download</a></p>
+        }
+        <input type="file" name="Evidence" class="form-control" />
+        <small class="form-text text-muted">Upload a new file to replace the existing one.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 

@@ -1,21 +1,37 @@
 ﻿@model IEnumerable<DisasterAlleviationFoundation.Models.Disaster>
-
 @{
     ViewData["Title"] = "Disaster Reports";
 }
 
 <h1>Disaster Reports</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Report New Disaster</a>
-</p>
+<form method="get" class="mb-3">
+    <div class="row g-2">
+        <div class="col">
+            <input type="text" name="searchLocation" value="@Context.Request.Query["searchLocation"]" class="form-control" placeholder="Filter by location" />
+        </div>
+        <div class="col">
+            <select name="searchSeverity" class="form-control">
+                <option value="">All Severities</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a asp-action="Index" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Name</th>
             <th>Location</th>
-            <th>Description</th>
+            <th>Severity</th>
+            <th>Status</th>
             <th>Reported At</th>
             <th>Actions</th>
         </tr>
@@ -26,7 +42,8 @@
             <tr>
                 <td>@disaster.Name</td>
                 <td>@disaster.Location</td>
-                <td>@disaster.Description</td>
+                <td>@disaster.Severity</td>
+                <td>@disaster.Status</td>
                 <td>@disaster.ReportedAt.ToString("yyyy-MM-dd HH:mm")</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@disaster.DisasterId" class="btn btn-info btn-sm">Details</a>
