@@ -3,6 +3,7 @@
 Please access source code here : https://github.com/AaliyahAllie/DisasterAlleviationFoundation.git 
 Please access azure repo through the organization 
 disasteralleviationwebsitegiftofthegivers-f5f6hcdbchhdgtdu.southafricanorth-01.azurewebsites.net (not functional)
+access video functionality here: https://youtu.be/p2ivF5m0AbQ?si=k3RJaWZ0VhheTJKT
 
 APP FUNCTIONALITY:
 The purpose of this repository is to hold the Disaster Alleviation Foundation C# Website.
