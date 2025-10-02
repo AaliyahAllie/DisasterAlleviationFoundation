@@ -43,7 +43,7 @@ steps:
   - task: AzureWebApp@1
     displayName: 'DisasterAlleviationWebsiteGiftofTheGivers'
     inputs:
-      azureSubscription: 'ASP-AZJHBRSGRCGPPTST10212542TER-b0cb (B1: 1)'
+      azureSubscription: 'ADvTECH-Tertiary Rosebank College'
       appType: 'webApp'
       appName: $(DisasterAlleviationWebsiteGiftofTheGivers)
       package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
