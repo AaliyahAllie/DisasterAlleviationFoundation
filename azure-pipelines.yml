@@ -49,9 +49,8 @@ steps:
 # Uncomment this section if you have an Azure Web App ready
 # Make sure to create a Service Connection in Azure DevOps first
 
-#- task: AzureWebApp@1
-#  inputs:
-#    azureSubscription: '<YOUR-AZURE-SUBSCRIPTION-NAME>'
-#    appType: 'webApp'
-#    appName: '<YOUR-APP-SERVICE-NAME>'
-#    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: '<YOUR-AZURE-SUBSCRIPTION-NAME>'#    appType: 'webApp'
+    appName: '<YOUR-APP-SERVICE-NAME>'
+   package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
