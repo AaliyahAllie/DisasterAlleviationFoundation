@@ -53,11 +53,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Seed roles
+// Seed roles
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    await SeedData.Initialize(services);
+    await SeedData.Initialize(services); // Only seeds roles, no users
 }
+
 
 app.MapControllerRoute(
     name: "default",

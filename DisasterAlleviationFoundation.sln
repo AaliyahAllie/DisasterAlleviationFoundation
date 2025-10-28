@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisasterAlleviationFoundation", "DisasterAlleviationFoundation\DisasterAlleviationFoundation.csproj", "{2955DD6D-50A8-4F8F-BD97-9DF27C442517}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisasterAlleviationFoundationC1.Tests", "DisasterAlleviationFoundationC1.Tests\DisasterAlleviationFoundationC1.Tests.csproj", "{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{2955DD6D-50A8-4F8F-BD97-9DF27C442517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2955DD6D-50A8-4F8F-BD97-9DF27C442517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2955DD6D-50A8-4F8F-BD97-9DF27C442517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E5040EE-1301-4253-9C27-734C31BE32F9}
 	EndGlobalSection
 EndGlobal

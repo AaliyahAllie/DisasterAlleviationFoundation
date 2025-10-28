@@ -4,6 +4,6 @@
     public class HomeDashboardViewModel
     {
         public List<Volunteer> Volunteers { get; set; } = new List<Volunteer>();
-        public List<VolunteerTaskViewModel> VolunteerTasks { get; set; } = new List<VolunteerTaskViewModel>();
+        public List<VolunteerTask> VolunteerTasks { get; set; } = new List<VolunteerTask>();
     }
 }
