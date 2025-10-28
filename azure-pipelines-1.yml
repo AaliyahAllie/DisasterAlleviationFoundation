@@ -1,0 +1,49 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  webAppName: 'DisasterAlleviationWebsiteGiftofTheGivers'   # e.g., apprPOE
+
+steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.x'
+
+  - task: NuGetToolInstaller@1
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      projects: 'DisasterAlleviationFoundation/DisasterAlleviationFoundation.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish'
+    inputs:
+      command: 'publish'
+      projects: 'DisasterAlleviationFoundation/DisasterAlleviationFoundation.csproj'
+      arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: true
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'drop'
+
+  - task: AzureWebApp@1
+    displayName: 'DisasterAlleviationWebsiteGiftofTheGivers'
+    inputs:
+      azureSubscription: 'ADvTECH-Tertiary Rosebank College'
+      appType: 'webApp'
+      appName: $(DisasterAlleviationWebsiteGiftofTheGivers)
+      package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
