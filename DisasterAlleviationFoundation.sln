@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisasterAlleviationFoundati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisasterAlleviationFoundationC1.Tests", "DisasterAlleviationFoundationC1.Tests\DisasterAlleviationFoundationC1.Tests.csproj", "{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisasterAlleviationFoundation.UITests", "DisasterAlleviationFoundation.UITests\DisasterAlleviationFoundation.UITests.csproj", "{56B1709B-5185-462B-9109-2F4799C0EB02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B24C10A-F4DE-4CC0-9993-756C6504EBE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B1709B-5185-462B-9109-2F4799C0EB02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B1709B-5185-462B-9109-2F4799C0EB02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B1709B-5185-462B-9109-2F4799C0EB02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B1709B-5185-462B-9109-2F4799C0EB02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
