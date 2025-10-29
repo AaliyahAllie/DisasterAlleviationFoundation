@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-
+using DisasterAlleviationFoundation;
 public class ProfileController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;
