@@ -1,5 +1,5 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# ASP.NET Core / .NET Framework CI/CD pipeline
+# Builds solution, runs tests (excluding UI/Selenium), and deploys to Azure Web App
 
 trigger:
 - master
@@ -11,31 +11,67 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  artifactName: 'WebApp'
 
 steps:
-# Install NuGet
-- task: NuGetToolInstaller@1
 
-# Restore NuGet packages
+# -----------------------------
+# Step 1: Install NuGet
+# -----------------------------
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+
+# -----------------------------
+# Step 2: Restore NuGet packages
+# -----------------------------
 - task: NuGetCommand@2
+  displayName: 'Restore NuGet packages'
   inputs:
     restoreSolution: '$(solution)'
 
-# Build solution
+# -----------------------------
+# Step 3: Build solution
+# -----------------------------
 - task: VSBuild@1
+  displayName: 'Build solution'
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# Run tests, excluding UITesting project
+# -----------------------------
+# Step 4: Run unit/integration tests (exclude Selenium/UI tests)
+# -----------------------------
 - task: VSTest@2
+  displayName: 'Run Unit and Integration Tests'
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    # Use a filter to exclude UITesting assembly
     testAssemblyVer2: |
       **\*Tests.dll
-      !**\*UITesting.dll
+      !**\*UITesting.dll       # exclude Selenium/UI tests
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    codeCoverageEnabled: true
+
+# -----------------------------
+# Step 5: Publish artifacts
+# -----------------------------
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)\WebApp.zip'
+    ArtifactName: '$(artifactName)'
+    publishLocation: 'Container'
+
+# -----------------------------
+# Step 6: Deploy to Azure Web App
+# -----------------------------
+- task: AzureWebApp@1
+  displayName: 'Deploy to Azure Web App'
+  inputs:
+    azureSubscription: 'ADvTECH-Tertiary Rosebank College'  # set up in Azure DevOps
+    appType: 'webApp'
+    appName: 'DisasterAlleviationWebsiteGiftofTheGivers'                           # your Azure Web App name
+    package: '$(build.artifactStagingDirectory)\WebApp.zip'
+    deploymentMethod: 'auto'
