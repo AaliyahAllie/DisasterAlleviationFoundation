@@ -35,3 +35,13 @@ Properties of a model (like DonorName, ResourceType, Quantity in the Donation mo
 When the application runs, Entity Framework Core uses these models to create, read, update, and delete records in the database.
 
 Changes to the model structure (adding/removing properties) are applied to the database via migrations, keeping the code and database in.
+
+##PART 3 UPDATES:##
+Testing phase and deployment,
+- The rest of this project contains testing to allow for the deployment of the application on azure web app.
+- This project contains:
+- Unit tests = testing of models
+- Integration tests = testing on controllers and database integration connections
+- UI tests = testing of user interfaces *views*
+- As well as load tests and stress testing using apache jmeter
+- and automated testing to allow final deployment
