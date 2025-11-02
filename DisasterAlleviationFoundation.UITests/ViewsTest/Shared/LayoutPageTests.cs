@@ -35,7 +35,7 @@ namespace DisasterAlleviationFoundation.UITests
         public void LayoutPage_NavigationAndFooterElementsExist()
         {
             // Navigate to home page
-            driver.Navigate().GoToUrl("https://localhost:5001/"); // adjust your URL
+            driver.Navigate().GoToUrl("https://localhost:7063/"); // adjust your URL
 
             // Verify Navbar exists
             var navbar = driver.FindElement(By.CssSelector("nav.navbar"));

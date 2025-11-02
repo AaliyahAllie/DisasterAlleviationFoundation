@@ -9,7 +9,7 @@ namespace DisasterAlleviationFoundation.UITests
         [TestMethod]
         public void CreateDisaster_ValidInput_SuccessfulRedirect()
         {
-            driver.Navigate().GoToUrl("https://localhost:5001/Disasters/Create");
+            driver.Navigate().GoToUrl("https://localhost:7063/Disasters/Create");
 
             // Fill in form
             driver.FindElement(By.Id("Title")).SendKeys("Flood in City A");

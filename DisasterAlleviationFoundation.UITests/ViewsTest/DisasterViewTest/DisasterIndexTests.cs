@@ -9,7 +9,7 @@ namespace DisasterAlleviationFoundation.UITests
         [TestMethod]
         public void Index_DisasterList_DisplaysReports()
         {
-            driver.Navigate().GoToUrl("https://localhost:5001/Disasters");
+            driver.Navigate().GoToUrl("https://localhost:7063/Disasters");
 
             // Check table exists
             var table = driver.FindElement(By.CssSelector("table.table"));
@@ -23,7 +23,7 @@ namespace DisasterAlleviationFoundation.UITests
         [TestMethod]
         public void FilterDisasters_ByLocationAndSeverity_Works()
         {
-            driver.Navigate().GoToUrl("https://localhost:5001/Disasters");
+            driver.Navigate().GoToUrl("https://localhost:7063/Disasters");
 
             // Fill location filter
             driver.FindElement(By.Name("location")).SendKeys("City A");

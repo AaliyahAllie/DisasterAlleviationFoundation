@@ -10,11 +10,11 @@ namespace DisasterAlleviationFoundation.UITests
         public void AdminLogin_ValidCredentials_RedirectsToDashboard()
         {
             // 1. Navigate to Admin Login page
-            driver.Navigate().GoToUrl("https://localhost:5001/Admin/Login");
+            driver.Navigate().GoToUrl("https://localhost:7063/Admin/Login");
 
             // 2. Fill in username and password
-            driver.FindElement(By.Id("username")).SendKeys("adminuser");
-            driver.FindElement(By.Id("password")).SendKeys("Admin123!");
+            driver.FindElement(By.Id("username")).SendKeys("admin");
+            driver.FindElement(By.Id("password")).SendKeys("adminPassKey12@");
 
             // 3. Click Login button
             driver.FindElement(By.CssSelector("button[type='submit']")).Click();

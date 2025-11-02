@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace DisasterAlleviationFoundation.UITests
 {
@@ -8,13 +10,15 @@ namespace DisasterAlleviationFoundation.UITests
     public class VolunteersPageTests
     {
         private IWebDriver driver;
+        private WebDriverWait wait;
 
         [TestInitialize]
         public void Setup()
         {
             var options = new ChromeOptions();
+
             // Headless mode for CI/CD (Azure Pipelines)
-            if (System.Environment.GetEnvironmentVariable("AZURE_PIPELINES") == "true")
+            if (Environment.GetEnvironmentVariable("AZURE_PIPELINES") == "true")
             {
                 options.AddArgument("--headless");
                 options.AddArgument("--disable-gpu");
@@ -22,6 +26,9 @@ namespace DisasterAlleviationFoundation.UITests
 
             driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
+
+            // Explicit wait for dynamic content
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         [TestCleanup]
@@ -33,11 +40,10 @@ namespace DisasterAlleviationFoundation.UITests
         [TestMethod]
         public void VolunteersListPage_DisplaysTableAndRegisterButton()
         {
-            // Navigate to Volunteers list page
-            driver.Navigate().GoToUrl("https://localhost:5001/Volunteers");
+            driver.Navigate().GoToUrl("https://localhost:7063/Volunteers");
 
-            // Verify heading
-            var heading = driver.FindElement(By.TagName("h2"));
+            // Wait for heading
+            var heading = wait.Until(d => d.FindElement(By.TagName("h2")));
             Assert.AreEqual("Registered Volunteers", heading.Text);
 
             // Verify Register button
@@ -59,8 +65,7 @@ namespace DisasterAlleviationFoundation.UITests
         [TestMethod]
         public void VolunteerRegistrationPage_SubmitForm_ShowsSuccess()
         {
-            // Navigate to Register page
-            driver.Navigate().GoToUrl("https://localhost:5001/Volunteers/Register");
+            driver.Navigate().GoToUrl("https://localhost:7063/Volunteers/Register");
 
             // Fill in form
             driver.FindElement(By.Id("Name")).SendKeys("Test Volunteer");
@@ -71,12 +76,19 @@ namespace DisasterAlleviationFoundation.UITests
             // Submit form
             driver.FindElement(By.CssSelector("button[type='submit']")).Click();
 
-            // After submission, check if redirected to Volunteers list
-            Assert.IsTrue(driver.Url.EndsWith("/Volunteers"));
+            // Wait until redirected to Volunteers list page
+            wait.Until(d => d.Url.EndsWith("/Volunteers") || d.Url.EndsWith("/Volunteers/"));
+            Assert.IsTrue(driver.Url.EndsWith("/Volunteers") || driver.Url.EndsWith("/Volunteers/"));
 
-            // Optional: Verify the new volunteer appears in the table
-            var table = driver.FindElement(By.CssSelector("table.table-striped"));
-            Assert.IsTrue(table.Text.Contains("Test Volunteer"));
+            // Wait for the table to include the new volunteer
+            wait.Until(d =>
+            {
+                var table = d.FindElement(By.CssSelector("table.table-striped"));
+                return table.Text.Contains("Test Volunteer");
+            });
+
+            var tableAfterSubmit = driver.FindElement(By.CssSelector("table.table-striped"));
+            Assert.IsTrue(tableAfterSubmit.Text.Contains("Test Volunteer"));
         }
     }
 }
