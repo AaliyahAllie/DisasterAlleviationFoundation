@@ -1,5 +1,5 @@
 # ASP.NET Core / .NET Framework CI/CD pipeline
-# Builds solution, runs tests (excluding UI/Selenium), and deploys to Azure Web App
+# Builds solution, runs MSTest unit/integration tests (excluding UI/Selenium), and deploys to Azure Web App
 
 trigger:
 - master
@@ -41,26 +41,19 @@ steps:
     configuration: '$(buildConfiguration)'
 
 # -----------------------------
-# Step 4: Run unit/integration tests (exclude Selenium/UI tests)
+# Step 4: Run MSTest Unit and Integration Tests
 # -----------------------------
 - task: VSTest@2
-  displayName: 'Run Unit and Integration Tests'
+  displayName: 'Run MSTest Unit/Integration Tests'
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     testAssemblyVer2: |
-      **\*Tests.dll
-      !**\*UITesting.dll       # exclude Selenium/UI tests
+      **\*Tests.dll          # Run all test projects ending with Tests.dll
+      !**\*UITesting.dll     # Exclude Selenium/UI tests
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    testFiltercriteria: 'TestCategory!=UI' # Optional: exclude UI tests marked with [TestCategory("UI")]
     codeCoverageEnabled: true
-
-# -----------------------------
-# Step 5: Publish artifacts
-# -----------------------------
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish build artifacts'
-  inputs:
-    PathtoPublish: '$(build.artifactStagingDirectory)\WebApp.zip'
-    ArtifactName: '$(artifactName)'
-    publishLocation: 'Container'
+    diagnosticsEnabled: true
+    publishRunAttachments: true
 
