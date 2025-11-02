@@ -64,14 +64,3 @@ steps:
     ArtifactName: '$(artifactName)'
     publishLocation: 'Container'
 
-# -----------------------------
-# Step 6: Deploy to Azure Web App
-# -----------------------------
-- task: AzureWebApp@1
-  displayName: 'Deploy to Azure Web App'
-  inputs:
-    azureSubscription: 'ADvTECH-Tertiary Rosebank College'  # set up in Azure DevOps
-    appType: 'webApp'
-    appName: 'DisasterAlleviationWebsiteGiftofTheGivers'                           # your Azure Web App name
-    package: '$(build.artifactStagingDirectory)\WebApp.zip'
-    deploymentMethod: 'auto'
